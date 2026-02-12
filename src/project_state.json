@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Build a training/knowledge website for AAA Lawyers focused on accident management systems in NSW, Australia, including courses and guidance on recovering costs from at-fault insurers and dealing with insurance companies, using a provided PDF as the primary source.",
+  "architectural_notes": [
+    "Primary content source is a provided PDF; site content should be derived from and aligned to that document.",
+    "Website branding/firm name: AAA Lawyers.",
+    "Jurisdiction and scope: NSW, Australia accident management and insurer recovery processes."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- AAA Lawyers wordmark logo, clean typographic style (aaa-lawyers-logo.dim_512x256.png)\n- Hero banner illustration themed around training/learning and document review (nsw-training-hero.dim_1600x600.png)\n- Set of 3 simple monochrome icons: book, graduation cap, shield (training-icons-set.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-public-facing-website-for-the-firm-name-aaa-lawyers-that-provides-a-structured-knowledge-base-and-training-courses-focused-on-accident-management-systems-in-nsw-australia",
+      "title": "Create a public-facing website for the firm name “AAA Lawyers” that provides a structured knowledge base and training courses focused on accident management systems in NSW, Australia.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-pdf-source-ingestion-workflow-so-administrators-can-use-the-provided-pdf-as-the-primary-source-for-knowledge-base-articles-and-course-content",
+      "title": "Add a PDF-source ingestion workflow so administrators can use the provided PDF as the primary source for knowledge base articles and course content.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-knowledge-base-section-containing-navigable-articles-derived-from-the-pdf-covering-nsw-accident-management-systems-recovery-process-from-at-fault-insurers-and-guidance-for-dealing-with-insurance-companies-in-nsw",
+      "title": "Implement a Knowledge Base section containing navigable articles derived from the PDF covering NSW accident management systems, recovery process from at-fault insurers, and guidance for dealing with insurance companies in NSW.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-training-courses-section-with-structured-courses-course-modules-lessons-that-trainees-can-follow-to-improve-product-knowledge-related-to-nsw-accident-management-and-insurer-recovery-processes",
+      "title": "Implement a Training Courses section with structured courses (course → modules/lessons) that trainees can follow to improve product knowledge related to NSW accident management and insurer recovery processes.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-trainee-sign-in-using-internet-identity-and-track-per-user-learning-progress-e-g-lesson-completion-and-overall-course-progress",
+      "title": "Add trainee sign-in using Internet Identity and track per-user learning progress (e.g., lesson completion and overall course progress).",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-lightweight-knowledge-checks-for-courses-e-g-short-quizzes-per-module-lesson-so-trainees-can-self-assess-understanding",
+      "title": "Add lightweight knowledge checks for courses (e.g., short quizzes per module/lesson) so trainees can self-assess understanding.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-an-admin-only-content-management-area-to-create-edit-publish-unpublish-knowledge-base-articles-courses-lessons-and-quizzes-including-managing-content-derived-from-the-pdf",
+      "title": "Provide an admin-only content management area to create/edit/publish/unpublish Knowledge Base articles, Courses, Lessons, and Quizzes, including managing content derived from the PDF.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-distinctive-visual-theme-suitable-for-a-professional-nsw-legal-training-site-consistent-colors-typography-spacing-and-component-styling-across-all-pages",
+      "title": "Apply a coherent, distinctive visual theme suitable for a professional NSW legal training site (consistent colors, typography, spacing, and component styling) across all pages.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-site-pages-and-navigation-home-knowledge-base-courses-about-aaa-lawyers-and-a-contact-page-static-contact-details-placeholder-text-only-no-email-sms-integrations",
+      "title": "Add basic site pages and navigation: Home, Knowledge Base, Courses, About AAA Lawyers, and a Contact page (static contact details placeholder text only, no email/SMS integrations).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create a training/knowledge website for AAA Lawyers on accident management systems in NSW (Australia)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Develop training course content covering recovery process from the at-fault insurer in NSW",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add learning modules/guidance on how to deal with insurance companies in NSW for trainee product knowledge improvement",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Ingest and use the provided PDF as the primary content/source for the website knowledge base and courses",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "AAA Lawyers NSW Accident Management Training Website",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

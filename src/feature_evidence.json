@@ -1,0 +1,213 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-create-a-public-facing-website-for-the-firm-name-aaa-lawyers-that-provides-a-structured-knowledge-base-and-training-courses-focused-on-accident-management-systems-in-nsw-australia",
+      "featureTitle": "Create a public-facing website for the firm name “AAA Lawyers” that provides a structured knowledge base and training courses focused on accident management systems in NSW, Australia.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/SiteLayout.tsx",
+        "frontend/src/pages/HomePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-pdf-source-ingestion-workflow-so-administrators-can-use-the-provided-pdf-as-the-primary-source-for-knowledge-base-articles-and-course-content",
+      "featureTitle": "Add a PDF-source ingestion workflow so administrators can use the provided PDF as the primary source for knowledge base articles and course content.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/admin/AdminRouteGuard.tsx",
+        "frontend/src/hooks/useAdmin.ts",
+        "frontend/src/pages/admin/AdminPdfIngestPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-knowledge-base-section-containing-navigable-articles-derived-from-the-pdf-covering-nsw-accident-management-systems-recovery-process-from-at-fault-insurers-and-guidance-for-dealing-with-insurance-companies-in-nsw",
+      "featureTitle": "Implement a Knowledge Base section containing navigable articles derived from the PDF covering NSW accident management systems, recovery process from at-fault insurers, and guidance for dealing with insurance companies in NSW.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useKnowledgeBase.ts",
+        "frontend/src/pages/knowledge-base/ArticleDetailPage.tsx",
+        "frontend/src/pages/knowledge-base/KnowledgeBaseIndexPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-training-courses-section-with-structured-courses-course-modules-lessons-that-trainees-can-follow-to-improve-product-knowledge-related-to-nsw-accident-management-and-insurer-recovery-processes",
+      "featureTitle": "Implement a Training Courses section with structured courses (course → modules/lessons) that trainees can follow to improve product knowledge related to NSW accident management and insurer recovery processes.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useCourses.ts",
+        "frontend/src/pages/courses/CourseDetailPage.tsx",
+        "frontend/src/pages/courses/CoursesIndexPage.tsx",
+        "frontend/src/pages/courses/LessonPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-trainee-sign-in-using-internet-identity-and-track-per-user-learning-progress-e-g-lesson-completion-and-overall-course-progress",
+      "featureTitle": "Add trainee sign-in using Internet Identity and track per-user learning progress (e.g., lesson completion and overall course progress).",
+      "files": [
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/components/layout/SiteLayout.tsx",
+        "frontend/src/hooks/useProgress.ts",
+        "frontend/src/hooks/useUserProfile.ts",
+        "frontend/src/pages/courses/CourseDetailPage.tsx",
+        "frontend/src/pages/courses/LessonPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-lightweight-knowledge-checks-for-courses-e-g-short-quizzes-per-module-lesson-so-trainees-can-self-assess-understanding",
+      "featureTitle": "Add lightweight knowledge checks for courses (e.g., short quizzes per module/lesson) so trainees can self-assess understanding.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/courses/LessonPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-provide-an-admin-only-content-management-area-to-create-edit-publish-unpublish-knowledge-base-articles-courses-lessons-and-quizzes-including-managing-content-derived-from-the-pdf",
+      "featureTitle": "Provide an admin-only content management area to create/edit/publish/unpublish Knowledge Base articles, Courses, Lessons, and Quizzes, including managing content derived from the PDF.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/hooks/useAdminContent.ts",
+        "frontend/src/pages/admin/AdminCoursesPage.tsx",
+        "frontend/src/pages/admin/AdminDashboardPage.tsx",
+        "frontend/src/pages/admin/AdminLessonsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-distinctive-visual-theme-suitable-for-a-professional-nsw-legal-training-site-consistent-colors-typography-spacing-and-component-styling-across-all-pages",
+      "featureTitle": "Apply a coherent, distinctive visual theme suitable for a professional NSW legal training site (consistent colors, typography, spacing, and component styling) across all pages.",
+      "files": [
+        "frontend/src/components/layout/SiteLayout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-basic-site-pages-and-navigation-home-knowledge-base-courses-about-aaa-lawyers-and-a-contact-page-static-contact-details-placeholder-text-only-no-email-sms-integrations",
+      "featureTitle": "Add basic site pages and navigation: Home, Knowledge Base, Courses, About AAA Lawyers, and a Contact page (static contact details placeholder text only, no email/SMS integrations).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/SiteLayout.tsx",
+        "frontend/src/pages/AboutPage.tsx",
+        "frontend/src/pages/ContactPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

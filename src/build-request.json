@@ -1,0 +1,184 @@
+{
+  "kind": "build_request",
+  "title": "AAA Lawyers NSW Accident Management Training & Knowledge Website (PDF-sourced)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a public-facing website for the firm name “AAA Lawyers” that provides a structured knowledge base and training courses focused on accident management systems in NSW, Australia.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a website which gives knowledge and training courses which includes accident management systems in NSW AUSTRALIA ... and the the firm name is aaa lawyers"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The site header/footer and page titles reference “AAA Lawyers”.",
+        "The homepage clearly presents two primary entry points: Knowledge Base and Training Courses.",
+        "All user-facing text is in English and consistently references NSW, Australia context."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Add a PDF-source ingestion workflow so administrators can use the provided PDF as the primary source for knowledge base articles and course content.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "use the pdf as a source"
+        ]
+      },
+      "acceptanceCriteria": [
+        "An admin-only screen allows adding content from the PDF into the system (either by uploading the PDF for client-side text extraction or by pasting extracted text), without requiring external services.",
+        "Ingested content can be saved into structured entities (e.g., Article, Course, Module/Lesson) in the backend.",
+        "The user can view the resulting articles/lessons in the public Knowledge Base and Courses sections."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement a Knowledge Base section containing navigable articles derived from the PDF covering NSW accident management systems, recovery process from at-fault insurers, and guidance for dealing with insurance companies in NSW.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "create a complete knowledge of the recovery process from at fault insurer and how to deal with the insurance companies in NSW AUSTRALIA"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Knowledge Base supports categories/tags at minimum: Accident Management Systems (NSW), Recovery from At-Fault Insurer (NSW), Dealing with Insurance Companies (NSW).",
+        "Users can browse article lists and open an article detail page.",
+        "Articles are persisted in the backend and loaded via React Query on the frontend."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Implement a Training Courses section with structured courses (course → modules/lessons) that trainees can follow to improve product knowledge related to NSW accident management and insurer recovery processes.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "training courses ... by which trainees can improve their product knowledge and learn"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can browse a list of courses and open a course detail page showing modules/lessons in order.",
+        "Each lesson supports rich text content stored in the backend.",
+        "Course content explicitly includes material on recovery process from at-fault insurers and how to deal with insurance companies in NSW (based on the PDF ingestion)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add trainee sign-in using Internet Identity and track per-user learning progress (e.g., lesson completion and overall course progress).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "trainees can improve their product knowledge and learn"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Users can sign in/out with Internet Identity.",
+        "A signed-in user can mark lessons as complete.",
+        "Progress is persisted per user in the backend and reflected in the UI (e.g., completed indicators and % progress for a course)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add lightweight knowledge checks for courses (e.g., short quizzes per module/lesson) so trainees can self-assess understanding.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "training courses ... learn"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admins can create/edit quiz questions (at least multiple-choice) attached to a lesson or module.",
+        "Trainees can take quizzes and see whether answers are correct.",
+        "Quiz attempts/results are stored per user and viewable on the lesson/module screen."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Provide an admin-only content management area to create/edit/publish/unpublish Knowledge Base articles, Courses, Lessons, and Quizzes, including managing content derived from the PDF.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "use the pdf as a source"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Admin access is restricted (e.g., via a backend allowlist of admin principals).",
+        "Admins can create, edit, and delete draft content and publish/unpublish it.",
+        "Non-admin users cannot access admin routes or admin APIs."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Apply a coherent, distinctive visual theme suitable for a professional NSW legal training site (consistent colors, typography, spacing, and component styling) across all pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A consistent theme is applied across layout, navigation, cards, and typography.",
+        "Theme avoids default-looking styling and is applied consistently on Home, Knowledge Base, Course pages, Lesson pages, and Admin pages."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add basic site pages and navigation: Home, Knowledge Base, Courses, About AAA Lawyers, and a Contact page (static contact details placeholder text only, no email/SMS integrations).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Create a website ... aaa lawyers"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Top-level navigation includes Home, Knowledge Base, Courses, About, Contact.",
+        "About page describes AAA Lawyers and the purpose of the training portal in general terms (no fabricated claims).",
+        "Contact page includes non-interactive placeholders for phone/email/address fields (no external service integration)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use Motoko in a single backend actor for all backend logic.",
+    "Do not modify any files under frontend immutablePaths (compose existing UI components instead).",
+    "Do not use external databases or third-party auth providers; only Internet Identity for authentication.",
+    "No external email/SMS/push/real-time integrations."
+  ],
+  "nonGoals": [
+    "Building a payment system or paid course enrollment.",
+    "Integrating external CRM/case management or insurer APIs.",
+    "Providing legal advice disclaimers beyond basic informational context unless explicitly requested by the user."
+  ],
+  "imageRequirements": {
+    "required": [
+      "AAA Lawyers wordmark logo, clean typographic style (aaa-lawyers-logo.dim_512x256.png)",
+      "Hero banner illustration themed around training/learning and document review (nsw-training-hero.dim_1600x600.png)",
+      "Set of 3 simple monochrome icons: book, graduation cap, shield (training-icons-set.dim_512x512.png)"
+    ],
+    "edits": []
+  }
+}

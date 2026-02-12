@@ -1,0 +1,340 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "AAA Lawyers NSW Accident Management Training & Knowledge Website (Frontend Plan)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Build the public AAA Lawyers site shell with clear entry points into Knowledge Base and Training Courses (NSW, Australia).",
+      "acceptanceCriteria": [
+        "The site header/footer and page titles reference “AAA Lawyers”.",
+        "The homepage clearly presents two primary entry points: Knowledge Base and Training Courses.",
+        "All user-facing text is in English and consistently references NSW, Australia context."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app root with routing + shared layout, ensuring global page titles and primary entry points for Knowledge Base and Training Courses are present. Use the authorization component patterns for authenticated navigation where needed; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "operation": "create",
+          "description": "Create a shared site layout (header, footer, main container) referencing “AAA Lawyers” and providing consistent structure across public and admin routes. Use shadcn-ui components for layout primitives and navigation styling; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "create",
+          "description": "Create a public homepage with two prominent entry cards/CTAs: Knowledge Base and Training Courses, written for NSW, Australia accident management training context. Use shadcn-ui Card/Button components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/public/assets/generated/aaa-lawyers-logo.dim_512x256.png",
+          "operation": "create",
+          "description": "Add the generated AAA Lawyers wordmark logo asset at the exact path frontend/public/assets/generated/aaa-lawyers-logo.dim_512x256.png so the header/footer can reference it."
+        },
+        {
+          "path": "frontend/public/assets/generated/nsw-training-hero.dim_1600x600.png",
+          "operation": "create",
+          "description": "Add the generated hero banner illustration at frontend/public/assets/generated/nsw-training-hero.dim_1600x600.png for use on the homepage."
+        },
+        {
+          "path": "frontend/public/assets/generated/training-icons-set.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated icon set image at frontend/public/assets/generated/training-icons-set.dim_512x512.png for use in homepage/section highlights."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Provide an admin-only PDF ingestion workflow to turn provided PDFs into structured content for the site without external services.",
+      "acceptanceCriteria": [
+        "An admin-only screen allows adding content from the PDF into the system (either by uploading the PDF for client-side text extraction or by pasting extracted text), without requiring external services.",
+        "Ingested content can be saved into structured entities (e.g., Article, Course, Module/Lesson) in the backend.",
+        "The user can view the resulting articles/lessons in the public Knowledge Base and Courses sections."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/AdminPdfIngestPage.tsx",
+          "operation": "create",
+          "description": "Create an admin-only PDF ingestion screen supporting: (1) PDF file selection -> read as Uint8Array -> call backend capability to import PDF, and (2) optional paste of extracted text to help create structured drafts (articles/lessons). Use the authorization component guidance to ensure only admins can access this page; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/admin/AdminRouteGuard.tsx",
+          "operation": "create",
+          "description": "Create an admin route guard that checks admin status via backend capability and blocks non-admin users from admin pages (show an access denied UI). Use the authorization component’s Access Control UI guidance; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdmin.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to load admin status/role (e.g., isCallerAdmin/getCallerUserRole) and expose loading/error states for route guards. Use the authorization component’s error-handling guidance; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Admin PDF ingestion route into the router under an admin-only area guarded by AdminRouteGuard (no orphan admin pages). Use the authorization component patterns for route protection; Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement a navigable Knowledge Base with tagged/categorized articles derived from the PDF and loaded via React Query.",
+      "acceptanceCriteria": [
+        "Knowledge Base supports categories/tags at minimum: Accident Management Systems (NSW), Recovery from At-Fault Insurer (NSW), Dealing with Insurance Companies (NSW).",
+        "Users can browse article lists and open an article detail page.",
+        "Articles are persisted in the backend and loaded via React Query on the frontend."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/knowledge-base/KnowledgeBaseIndexPage.tsx",
+          "operation": "create",
+          "description": "Create the Knowledge Base landing/list page with category filters/tags for the required NSW topics and an article list UI. Use shadcn-ui components for filters, badges, and list cards; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/knowledge-base/ArticleDetailPage.tsx",
+          "operation": "create",
+          "description": "Create an article detail page that renders rich text content and shows its category/tags (NSW-focused). Use shadcn-ui typography patterns; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useKnowledgeBase.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for loading Knowledge Base article lists and individual articles from backend capabilities (and mapping to required tags/categories)."
+        },
+        {
+          "path": "frontend/src/backend.d.ts",
+          "operation": "modify",
+          "description": "Extend frontend typings to include Knowledge Base article read models and related backend capability signatures required by the Knowledge Base React Query hooks (keep it consistent with the canister interface once available)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Knowledge Base routes (index + article detail) and ensure navigation links exist in the header."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Implement Training Courses browsing and course/lesson detail views with structured modules/lessons and rich text lessons.",
+      "acceptanceCriteria": [
+        "Users can browse a list of courses and open a course detail page showing modules/lessons in order.",
+        "Each lesson supports rich text content stored in the backend.",
+        "Course content explicitly includes material on recovery process from at-fault insurers and how to deal with insurance companies in NSW (based on the PDF ingestion)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/courses/CoursesIndexPage.tsx",
+          "operation": "create",
+          "description": "Create a courses list page that loads courses via React Query and displays course cards, titles, and descriptions. Use shadcn-ui Card components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/courses/CourseDetailPage.tsx",
+          "operation": "create",
+          "description": "Create a course detail page that loads the course + ordered lessons and presents a structured outline trainees can follow (NSW accident management focus). Use shadcn-ui components for accordions/lists; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/courses/LessonPage.tsx",
+          "operation": "create",
+          "description": "Create a lesson page to render rich lesson content from the backend and provide progression/quiz UI areas (where applicable). Use shadcn-ui typography for readable content; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCourses.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for course list, course detail, lessons by course, and lesson detail using the available backend capabilities."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Courses routes (index, course detail, lesson detail) into the router and ensure navigation includes Courses."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add Internet Identity sign-in, profile setup, and per-user learning progress tracking UI (lesson completion + course progress).",
+      "acceptanceCriteria": [
+        "Users can sign in/out with Internet Identity.",
+        "A signed-in user can mark lessons as complete.",
+        "Progress is persisted per user in the backend and reflected in the UI (e.g., completed indicators and % progress for a course)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a login/logout button using the Internet Identity hook and clear React Query cache on logout per the authorization component guidance; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup dialog that asks for the user’s name (and optional email if required by the backend type) and saves via backend capability, avoiding modal flash per authorization component guidance; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useUserProfile.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for getCallerUserProfile/saveCallerUserProfile and expose derived state to drive ProfileSetupDialog. Use the authorization component’s recommended pattern to prevent profile modal flashing; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useProgress.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to load trainee progress and mutations to mark lessons completed, updating cached course/lesson UI state accordingly."
+        },
+        {
+          "path": "frontend/src/pages/courses/CourseDetailPage.tsx",
+          "operation": "modify",
+          "description": "Add per-lesson completion indicators and overall % progress for the course using trainee progress data. Use shadcn-ui Progress/Badge components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/courses/LessonPage.tsx",
+          "operation": "modify",
+          "description": "Add a 'Mark complete' action for signed-in users that calls the backend capability and reflects completed state in UI. Use shadcn-ui Button components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "operation": "modify",
+          "description": "Add auth-aware header UI (LoginButton; show user name from profile when available) and ensure logout clears cached data, per authorization component guidance; Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add lightweight quizzes for lessons/modules, including admin authoring and trainee attempts/results shown on lesson/module screens.",
+      "acceptanceCriteria": [
+        "Admins can create/edit quiz questions (at least multiple-choice) attached to a lesson or module.",
+        "Trainees can take quizzes and see whether answers are correct.",
+        "Quiz attempts/results are stored per user and viewable on the lesson/module screen."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/AdminQuizzesPage.tsx",
+          "operation": "create",
+          "description": "Create an admin-only quiz management screen to create/edit multiple-choice questions attached to a lesson/module, using an admin route guard. Use the authorization component patterns for admin-only UI; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/quizzes/LessonQuiz.tsx",
+          "operation": "create",
+          "description": "Create a quiz-taking component for trainees: render MCQs, submit answers, and display correctness and prior attempt results for the current lesson/module. Use shadcn-ui form components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useQuizzes.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for fetching quiz questions for a lesson/module and storing quiz attempts/results per user via backend capabilities (to be implemented/available in the canister interface)."
+        },
+        {
+          "path": "frontend/src/backend.d.ts",
+          "operation": "modify",
+          "description": "Extend frontend typings to include Quiz, QuizQuestion, QuizAttempt/Result models and required backend capability signatures for admin authoring and trainee attempts (keep aligned with the canister interface once available)."
+        },
+        {
+          "path": "frontend/src/pages/courses/LessonPage.tsx",
+          "operation": "modify",
+          "description": "Wire LessonQuiz into the lesson screen so trainees can take the quiz and see stored results/attempts for that lesson/module."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the Admin Quizzes route into the admin area, guarded by AdminRouteGuard (no orphan admin tooling)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Provide an admin-only content management area for courses/lessons/articles with draft/publish controls and restricted access.",
+      "acceptanceCriteria": [
+        "Admin access is restricted (e.g., via a backend allowlist of admin principals).",
+        "Admins can create, edit, and delete draft content and publish/unpublish it.",
+        "Non-admin users cannot access admin routes or admin APIs."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/admin/AdminDashboardPage.tsx",
+          "operation": "create",
+          "description": "Create an admin dashboard landing page with navigation to PDF ingest, Knowledge Base content, Courses/Lessons, and Quizzes. Use the authorization component patterns for admin-only UI; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminCoursesPage.tsx",
+          "operation": "create",
+          "description": "Create admin UI to create/edit/publish/unpublish courses, including status changes, using backend capabilities. Use shadcn-ui form and table components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminLessonsPage.tsx",
+          "operation": "create",
+          "description": "Create admin UI to create/edit/publish/unpublish lessons, attach to courses, and manage rich text content (including content derived from PDF ingestion). Use shadcn-ui form components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/admin/AdminKnowledgeBasePage.tsx",
+          "operation": "create",
+          "description": "Create admin UI to create/edit/publish/unpublish Knowledge Base articles (including tagging for the three required NSW categories) and link articles to ingested PDF source references. Use shadcn-ui form components; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useAdminContent.ts",
+          "operation": "create",
+          "description": "Add React Query hooks/mutations for admin content management operations (save/update content and set published/draft/archived status), handling authorization failures gracefully per the authorization component guidance; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/backend.d.ts",
+          "operation": "modify",
+          "description": "Update frontend typings to include missing admin content-management backend capability signatures needed by the admin UI for Knowledge Base articles and quiz management (keep aligned with canister interface once available)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire admin routes (dashboard, PDF ingest, knowledge base admin, courses admin, lessons admin, quizzes admin) under AdminRouteGuard to ensure non-admin users cannot access admin routes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Apply a coherent, distinctive professional theme (legal training) across all pages using Tailwind and shared components.",
+      "acceptanceCriteria": [
+        "A consistent theme is applied across layout, navigation, cards, and typography.",
+        "Theme avoids default-looking styling and is applied consistently on Home, Knowledge Base, Course pages, Lesson pages, and Admin pages."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styles and CSS variables (brand palette, typography defaults, spacing rhythm) to produce a professional NSW legal training look and ensure consistent styles across all pages."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme tokens (brand color variables, shadows, typography tweaks) to support the new site theme consistently."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "operation": "modify",
+          "description": "Update layout components (header/footer/nav) to use the new theme tokens, consistent spacing, and professional visual hierarchy. Use shadcn-ui components for consistent styling; Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add basic pages and top-level navigation: Home, Knowledge Base, Courses, About AAA Lawyers, Contact.",
+      "acceptanceCriteria": [
+        "Top-level navigation includes Home, Knowledge Base, Courses, About, Contact.",
+        "About page describes AAA Lawyers and the purpose of the training portal in general terms (no fabricated claims).",
+        "Contact page includes non-interactive placeholders for phone/email/address fields (no external service integration)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/AboutPage.tsx",
+          "operation": "create",
+          "description": "Create a static About page describing AAA Lawyers and the portal purpose in general terms without making unverifiable claims."
+        },
+        {
+          "path": "frontend/src/pages/ContactPage.tsx",
+          "operation": "create",
+          "description": "Create a static Contact page showing placeholder phone/email/address fields (non-interactive; no integrations). Use shadcn-ui Card/Separator components for layout; Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/layout/SiteLayout.tsx",
+          "operation": "modify",
+          "description": "Add top-level navigation links for Home, Knowledge Base, Courses, About, Contact, and ensure consistent footer navigation referencing “AAA Lawyers”."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire About and Contact routes into the router and ensure they are reachable from the top-level navigation."
+        }
+      ]
+    }
+  ]
+}

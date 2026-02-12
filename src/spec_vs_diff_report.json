@@ -1,0 +1,146 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-12T12:26:56.906Z",
+  "summary": "Diff adds a Motoko backend actor with access control mixins plus a new React Router frontend with AAA Lawyers branding, navigation, admin-guarded routes, Internet Identity login, basic theming, and admin pages for courses/lessons and PDF ingest. However, several BuildRequest requirements are not evidenced in the diff summary (notably Knowledge Base article entities/tags, course module/lesson hierarchy, quizzes, and publish/unpublish + delete for all content types).",
+  "missing_requirements": [
+    {
+      "id": "REQ-2",
+      "requirement": "Admin-only PDF-source ingestion workflow that saves PDF-derived content into structured backend entities (Article, Course, Module/Lesson) and is viewable publicly.",
+      "reason": "Frontend shows an admin PDF ingest route and hook calling `actor.importPdf`, but the backend snippet shown does not include an `importPdf` function nor any Article/Module structures; also ingestion into Knowledge Base Articles is not evidenced.",
+      "evidence": [
+        "frontend/src/App.tsx (AdminPdfIngestPage route)",
+        "frontend/src/hooks/useAdmin.ts (useImportPdf calls actor.importPdf)",
+        "backend/main.mo (truncated; shows Course/Lesson types but no importPdf in visible portion)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Knowledge Base section with persisted Articles derived from PDF, with required categories/tags and article list + detail pages loaded via React Query.",
+      "reason": "Knowledge Base hooks/pages appear to reuse `Lesson` entities (no separate `Article` type evident) and there is no evidence of categories/tags supporting the three required tags. Persistence/loading via React Query for articles specifically is not evidenced (only lessons).",
+      "evidence": [
+        "frontend/src/pages/knowledge-base/KnowledgeBaseIndexPage (referenced in routes, file content not shown)",
+        "frontend/src/pages/knowledge-base/ArticleDetailPage (referenced in routes, file content not shown)",
+        "frontend/src/hooks/useKnowledgeBase.ts (uses Lesson and actor.getLessonsByCourse/getLesson)",
+        "backend/main.mo (truncated; defines Lesson/Course but no Article/categories/tags types shown)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Training Courses section with structured course → modules/lessons (ordered), lesson rich text stored in backend, and explicit NSW recovery/insurer material based on PDF ingestion.",
+      "reason": "Backend and admin UI support Course and Lesson, but there is no evidence of a module layer (course → modules → lessons) or ordering. While Lesson.content is text, there is no evidence of rich-text support beyond plain Text. Also no evidence that content is populated from PDF ingestion (import implementation not shown).",
+      "evidence": [
+        "backend/main.mo (truncated; defines Course and Lesson only, no Module type or ordering fields)",
+        "frontend/src/pages/admin/AdminLessonsPage.tsx (creates lesson with `content` string and `courseId`)",
+        "frontend/src/pages/courses/CourseDetailPage / LessonPage (referenced in routes, content not shown)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Track per-user learning progress (lesson completion and overall course progress) persisted in backend and reflected in UI (completed indicators and % progress).",
+      "reason": "A progress hook exists that calls `getTraineeProgress`, `markLessonCompleted`, and `enrollInCourse`, but the backend snippet shown does not evidence these functions or any UI that displays % progress/completed indicators.",
+      "evidence": [
+        "frontend/src/hooks/useProgress.ts (expects progress APIs)",
+        "backend/main.mo (truncated; shows traineeProgress state but no visible functions for getTraineeProgress/markLessonCompleted/enrollInCourse)",
+        "frontend/src/pages/courses/CourseDetailPage / LessonPage (referenced in routes; no evidence of progress UI in summary)"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Quizzes/knowledge checks: admin create/edit multiple-choice questions attached to a lesson/module; trainees take quizzes, see correctness; attempts stored per user and shown on lesson/module screen.",
+      "reason": "No quiz types, storage, backend APIs, admin pages/routes, or trainee quiz UI are evidenced in the diff summary.",
+      "evidence": [
+        "frontend/src/App.tsx (no quiz-related routes)",
+        "backend/main.mo (truncated; no Quiz types/APIs visible)"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Admin-only content management for Knowledge Base Articles, Courses, Lessons, and Quizzes with create/edit/delete and publish/unpublish; non-admins blocked from admin routes and APIs.",
+      "reason": "Admin route guard exists and backend uses admin permission checks for save/update. However, there is no evidence of delete operations, no evidence of Knowledge Base Article management as a distinct entity, and no evidence of any Quiz management. Publish/unpublish is partially implied by `ContentStatus` and `setContentStatus` hook, but backend implementation of `setContentStatus` is not shown in the provided snippet.",
+      "evidence": [
+        "frontend/src/components/admin/AdminRouteGuard.tsx",
+        "frontend/src/pages/admin/AdminCoursesPage.tsx (create/edit + status change UI; no delete evidenced)",
+        "frontend/src/pages/admin/AdminLessonsPage.tsx (create/edit + status change UI; no delete evidenced)",
+        "frontend/src/hooks/useAdminContent.ts (calls actor.setContentStatus)",
+        "backend/main.mo (truncated; shows admin checks for save/update, but no delete/setContentStatus/quiz/article APIs visible)"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Coherent, distinctive visual theme applied consistently across Home, Knowledge Base, Course, Lesson, and Admin pages (avoid default-looking styling).",
+      "reason": "A Tailwind/CSS variable theme is added, but the diff summary does not include the Home/Courses/KB/Lesson/Admin page implementations (most are referenced but not shown), so consistent application across all pages cannot be confirmed from the evidence provided.",
+      "evidence": [
+        "frontend/src/index.css",
+        "frontend/src/App.tsx (ThemeProvider)",
+        "frontend/src/components/layout/SiteLayout.tsx (uses styled layout)"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Contact page includes non-interactive placeholders for phone/email/address fields (no external integrations).",
+      "reason": "ContactPage is routed, but its content is not shown in the diff summary, so the presence of placeholder contact details cannot be verified.",
+      "evidence": [
+        "frontend/src/App.tsx (ContactPage route)",
+        "frontend/src/pages/ContactPage (referenced, content not shown)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile capture (name + optional email) with mandatory profile setup dialog after login.",
+      "reason": "BuildRequest only requires Internet Identity sign-in and learning progress; it does not request collecting/storing user profile info or forcing a profile setup flow.",
+      "evidence": [
+        "backend/main.mo (UserProfile type + save/get profile functions)",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/components/layout/SiteLayout.tsx (shows ProfileSetupDialog based on profile state)",
+        "frontend/src/hooks/useUserProfile.ts"
+      ]
+    },
+    {
+      "description": "Secret URL parameter `caffeineAdminToken` used to initialize access control on the actor (`_initializeAccessControlWithSecret`).",
+      "reason": "BuildRequest specifies admin restriction via allowlist of admin principals; it does not request a secret-token-based bootstrap mechanism via URL parameters.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts (getSecretParameter('caffeineAdminToken') and actor._initializeAccessControlWithSecret(adminToken))"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/admin/AdminRouteGuard.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/ProfileSetupDialog.tsx",
+    "frontend/src/components/layout/SiteLayout.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAdmin.ts",
+    "frontend/src/hooks/useAdminContent.ts",
+    "frontend/src/hooks/useCourses.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useKnowledgeBase.ts",
+    "frontend/src/hooks/useProgress.ts",
+    "frontend/src/hooks/useUserProfile.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AboutPage.tsx",
+    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/pages/HomePage.tsx",
+    "frontend/src/pages/admin/AdminCoursesPage.tsx",
+    "frontend/src/pages/admin/AdminDashboardPage.tsx",
+    "frontend/src/pages/admin/AdminLessonsPage.tsx",
+    "frontend/src/pages/admin/AdminPdfIngestPage.tsx",
+    "frontend/src/pages/courses/CourseDetailPage.tsx",
+    "frontend/src/pages/courses/CoursesIndexPage.tsx",
+    "frontend/src/pages/courses/LessonPage.tsx",
+    "frontend/src/pages/knowledge-base/ArticleDetailPage.tsx",
+    "frontend/src/pages/knowledge-base/KnowledgeBaseIndexPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

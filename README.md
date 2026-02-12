@@ -1,2 +1,3 @@
-# aaa-lawyers-nsw-accident-management-training-website
-Exported from Caffeine project: AAA Lawyers NSW Accident Management Training Website
+## AAA Lawyers NSW Accident Management Training Website
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`
